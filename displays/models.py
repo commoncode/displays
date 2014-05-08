@@ -3,7 +3,9 @@ from django.db import models
 from django.contrib.contenttypes import generic
 
 from cqrs.models import CQRSModel
-from entropy.base import SlugUniqueMixin, StartEndBetaMixin
+from entropy.base import (
+    AttributeMixin, EnabledMixin, OrderingMixin, TitleMixin
+)
 
 from .settings import CONTENT_MODELS
 
@@ -20,20 +22,20 @@ class DisplayInstance(CQRSModel):
     link = models.ForeignKey('menus.Link', blank=True, null=True)
 
 
-class Display(CQRSModel, TitleMixin, AttrMixin):
+class Display(CQRSModel, AttributeMixin, EnabledMixin, TitleMixin):
     '''
     A Display of Content or Widgets with a given template.
 
     Some templates accept parameters, such as slideshow duration
     '''
+    # title
+    # short_title
+    # enabled
 
     blurb = models.TextField(
         blank=True,
         default='')
 
-    enabled = EnabledField()
-
-    @buffered_property
     def contents(self):
         '''
         Return the content for this display
@@ -45,7 +47,7 @@ class Display(CQRSModel, TitleMixin, AttrMixin):
         ]
 
 
-class Content(CQRSModel, StartEndBetaMixin):
+class Content(CQRSModel, OrderingMixin):
     '''
     Content for Display
     '''
@@ -57,6 +59,3 @@ class Content(CQRSModel, StartEndBetaMixin):
     )
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
-
-    order = models.PositiveIntegerField(blank=True, null=True)
-
