@@ -27,9 +27,9 @@ setup( name='displays',
         'pip',
     ],
     install_requires = [
-        'django-entropy',
-        'platforms',
-        'menus',
-        'positions',
+        # 'django-entropy',
+        # 'platforms',
+        # 'menus',
+        # 'positions',
     ]
 )
