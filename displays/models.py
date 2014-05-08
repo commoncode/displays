@@ -9,11 +9,11 @@ from .settings import CONTENT_MODELS
 
 
 class DisplayInstance(CQRSModel):
-	'''
-	Displays are reuseable
-	'''
+    '''
+    Displays are reuseable
+    '''
 
-	display = models.ForeignKey('Display')
+    display = models.ForeignKey('Display')
     platform = models.ForeignKey('platforms.Platform')
     position = models.ForeignKey('positions.Position')
 
