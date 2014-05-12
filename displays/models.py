@@ -28,9 +28,6 @@ class Display(CQRSModel, AttributeMixin, EnabledMixin, TitleMixin):
 
     Some templates accept parameters, such as slideshow duration
     '''
-    # title
-    # short_title
-    # enabled
 
     blurb = models.TextField(
         blank=True,
@@ -47,10 +44,11 @@ class Display(CQRSModel, AttributeMixin, EnabledMixin, TitleMixin):
         ]
 
 
-class Content(CQRSModel, OrderingMixin):
+class Content(CQRSModel, EnabledMixin, OrderingMixin):
     '''
     Content for Display
     '''
+
     display = models.ForeignKey('Display')
 
     content_type = models.ForeignKey(
