@@ -14,7 +14,7 @@ class ContentSerializer(CQRSSerializer):
 
 
 class DisplaySerializer(CQRSSerializer):
-    content = ContentSerializer(many=True)
+    content_set = ContentSerializer(many=True)
 
     class Meta:
         model = Display
@@ -25,7 +25,7 @@ class DisplaySerializer(CQRSSerializer):
 
 
 class DisplayInstanceSerializer(CQRSSerializer):
-    display = DisplayInstance()
+    display = DisplaySerializer()
     link = LinkSerializer()
 
     class Meta:
