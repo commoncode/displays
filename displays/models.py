@@ -18,8 +18,12 @@ class DisplayInstance(CQRSModel):
     display = models.ForeignKey('Display')
     platform = models.ForeignKey('platforms.Platform')
     position = models.ForeignKey('positions.Position')
+    links = models.ManyToManyField('menus.Link', blank=True, null=True)
 
-    link = models.ForeignKey('menus.Link', blank=True, null=True)
+    def link_ids(self):
+        return self.links.values_list('pk', flat=True)
+
+
 
 
 class Display(CQRSModel, AttributeMixin, EnabledMixin, TitleMixin):

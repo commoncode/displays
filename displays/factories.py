@@ -28,5 +28,15 @@ class DisplayInstanceFactory(factory.django.DjangoModelFactory):
 
     display = factory.SubFactory(DisplayFactory)
     position = factory.SubFactory(PositionFactory)
-    link = factory.SubFactory(LinkFactory)
     platform_id = 1
+
+    @factory.post_generation
+    def links(self, create, extracted, **kwargs):
+        if not create:
+            # Simple build, do nothing.
+            return
+
+        if extracted:
+            # A list of groups were passed in, use them
+            for link in extracted:
+                self.links.add(link)

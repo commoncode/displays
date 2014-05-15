@@ -9,4 +9,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         print "Removing Display Instances"
 
-        DisplayInstance.objects.all().delete()
+        for display in DisplayInstance.objects.all():
+            display.links.delete()
+            display.delete()

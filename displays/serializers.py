@@ -1,8 +1,18 @@
+from rest_framework import serializers
+
 from cqrs.serializers import CQRSSerializer
 
-from menus.serializers import LinkSerializer
+from menus.models import Link
 
 from .models import Content, Display, DisplayInstance
+
+
+class LinkArraySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Link
+
+    def to_native(self, obj):
+        return obj
 
 
 class ContentSerializer(CQRSSerializer):
@@ -26,7 +36,7 @@ class DisplaySerializer(CQRSSerializer):
 
 class DisplayInstanceSerializer(CQRSSerializer):
     display = DisplaySerializer()
-    link = LinkSerializer()
+    links = LinkArraySerializer(source='link_ids', read_only=True)
 
     class Meta:
         model = DisplayInstance
@@ -34,5 +44,5 @@ class DisplayInstanceSerializer(CQRSSerializer):
             'display',
             'platform',
             'position',
-            'link'
+            'links'
         )
