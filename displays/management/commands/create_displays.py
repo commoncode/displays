@@ -28,7 +28,7 @@ class Command(BaseCommand):
             for j in range(3):
                 random_links.append(choice(links))
 
-            DisplayInstanceFactory(position=choice(positions),
+            DisplayInstanceFactory(position=positions.get(title='Feature'),
                 links=random_links)
 
             print "Created Display"

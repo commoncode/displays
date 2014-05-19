@@ -10,5 +10,5 @@ class Command(BaseCommand):
         print "Removing Display Instances"
 
         for display in DisplayInstance.objects.all():
-            display.links.delete()
+            display.links.all().delete()
             display.delete()
