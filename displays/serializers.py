@@ -3,8 +3,20 @@ from rest_framework import serializers
 from cqrs.serializers import CQRSSerializer
 
 from menus.models import Link
+from widgets.models import Widget
+from widgets.serializers import WidgetSerializer
 
 from .models import Content, Display, DisplayInstance
+
+
+class ContentObjectRelatedField(serializers.RelatedField):
+    def to_native(self, value):
+        if isinstance(value, Widget):
+            serializer = WidgetSerializer(value)
+        else:
+            raise Exception('Unexpected type of tagged object')
+
+        return serializer.data
 
 
 class LinkArraySerializer(serializers.ModelSerializer):
@@ -16,10 +28,12 @@ class LinkArraySerializer(serializers.ModelSerializer):
 
 
 class ContentSerializer(CQRSSerializer):
+    content_object = ContentObjectRelatedField()
+
     class Meta:
         model = Content
         fields = (
-            'object_id',
+            'content_object',
         )
 
 
