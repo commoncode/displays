@@ -2,7 +2,7 @@ from django.apps import AppConfig
 from django.utils.importlib import import_module
 
 
-class DisplayConfig(AppConfig):
+class DisplaysConfig(AppConfig):
     name = 'displays'
     verbose_name = 'Displays'
 
