@@ -13,18 +13,21 @@ fake = Factory.create()
 
 class DisplayFactory(factory.django.DjangoModelFactory):
     FACTORY_FOR = 'displays.Display'
+    FACTORY_DJANGO_GET_OR_CREATE = ('title', )
 
     title = factory.LazyAttribute(lambda o: words(2, common=False).title())
 
 
 class ContentFactory(factory.django.DjangoModelFactory):
     FACTORY_FOR = 'displays.Content'
+    FACTORY_DJANGO_GET_OR_CREATE = ('display', )
 
     display = factory.SubFactory(DisplayFactory)
 
 
 class DisplayInstanceFactory(factory.django.DjangoModelFactory):
     FACTORY_FOR = 'displays.DisplayInstance'
+    FACTORY_DJANGO_GET_OR_CREATE = ('display', 'position')
 
     display = factory.SubFactory(DisplayFactory)
     position = factory.SubFactory(PositionFactory)
