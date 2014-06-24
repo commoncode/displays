@@ -1,8 +1,7 @@
 import factory
 
-from django.contrib.webdesign.lorem_ipsum import paragraphs, words
+from django.contrib.webdesign.lorem_ipsum import words
 
-from menus.factories import LinkFactory
 from positions.factories import PositionFactory
 
 from faker import Factory
@@ -20,7 +19,7 @@ class DisplayFactory(factory.django.DjangoModelFactory):
 
 class ContentFactory(factory.django.DjangoModelFactory):
     FACTORY_FOR = 'displays.Content'
-    FACTORY_DJANGO_GET_OR_CREATE = ('display', )
+    FACTORY_DJANGO_GET_OR_CREATE = ('display', 'content_type', 'object_id')
 
     display = factory.SubFactory(DisplayFactory)
 
